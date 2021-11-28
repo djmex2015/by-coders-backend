@@ -51,6 +51,7 @@ Foi usado postman pra testar os endpoints, aqui vai um exemplo da devolucao do /
 
 **Banco de Dados**: Foi usado MySQL Server 8.0.27-1debian10 (imagem hosted em Hub Docker), pra persistencia dos registros, pra baixar a imagem deve ser feita do site de hub-docker (https://hub.docker.com/_/mysql). 
 
+* As configuracoes estao descritas no application.properties (src/main/resources/application.properties).
 * Adiciono para mais detalhe na criacao da DB em outro arquivo do projecto my-coders-backend, onde ai esta descrito tudo o trace da command-line-client da plataforma.
 
 
