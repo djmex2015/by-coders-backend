@@ -22,9 +22,9 @@ Ao executar essas linhas vai ficar escutando no porto 8080, o qual o client (fro
 
 http://localhost:8080/processFile  
 
---> PARAMETROS: Um MultipartFile de nome 'file' 
---> RETORNA: Um boolean sucess/error 
---> FUNCAO: Adiciona as operaciones do archivos em a DB
+* --> PARAMETROS: Um MultipartFile de nome 'file' 
+* --> RETORNA: Um boolean sucess/error 
+* --> FUNCAO: Adiciona as operaciones do archivos em a DB
 
 http://localhost:8080/listMovimentos 
 
