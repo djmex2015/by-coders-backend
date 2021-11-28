@@ -1,115 +1,66 @@
 # by-coders-backend
 
-MYSQL-DOCKER
+Front-End: Basicamente a implementação foi feita com o Angular 13 (13.0.2) e usei o Node.JS (16.13) como uma plataforma de desenvolvimento aproveitando também pelo seu soporte que é muito bom. Caso o site tivesse um ambiente de producao, 
+o Apache seria uma boa opção. Usei tambem outras librerias de apoio a em CSS Material Angular, elas tem uma boa homologacao en funcao de sua compatibilidade com o framework.
 
-# mysql -u root -p
-Enter password:
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 22
-Server version: 8.0.27 MySQL Community Server - GPL
+Pra rodar o frontend tem que ser executado asim:
 
-Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+	$	npm install //baixar os modulos da app
+	$	npm start	//inicializa o app
+	
+Este vai ser visualizado mediante o browser em o port 4200 --> http://localhost:4200.
 
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
 
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+Back-End: O BackEnd foi desenvolvido em Java 11 usando Spring Boot 2 (v2.5.6), desenvolvido no Spring 5 (muito bom soporte), aproveitando a otimização de recursos de automação de tasks.
+Aqui se uso outras tecnologias como spring-data, spring-web, lombok, spring-boot-maven-plugin, etc...nao tive a necessidade de outras que poderiam ser adicioandas tambem. 
 
-mysql> create database bycoders;
-Query OK, 1 row affected (0.02 sec)
+Pra rodar o backend tem que ser executado asim:
 
-mysql> show databases;
-+--------------------+
-| Database           |
-+--------------------+
-| bycoders           |
-| information_schema |
-| mysql              |
-| performance_schema |
-| sys                |
-| tasklogs           |
-+--------------------+
-6 rows in set (0.01 sec)
+	$	mvn spring-boot:run spring-boot.run.jvmArguments=-noverify -XX:TieredStopAtLevel=1 spring-boot.run.mainClass=com.example.BasicApplication Env.SPRING_OUTPUT_ANSI_ENABLED=always
+	
+uo tambem:
 
-mysql> use bycoders;
-Database changed
-mysql> create table test(tipo VARCHAR(10) NOT NULL,data VARCHAR(10) NOT NULL,valor INTEGER,cpf VARCHAR(10));
-Query OK, 0 rows affected (0.06 sec)
+	$	mvn clean package spring-boot:repackage
+	$	java -jar target/basic-0.0.1-SNAPSHOT
 
-mysql> SHOW TABLES;
-+--------------------+
-| Tables_in_bycoders |
-+--------------------+
-| test               |
-+--------------------+
-1 row in set (0.00 sec)
+pode ser adicionado mais argumentos (memoria,cache,etc...) tambem para melhorar a performance, dependendo do contexto infra-estrutural onde se este executamdo.
+Ao executar essas linhas vai ficar escutando no porto 8080, o qual o client (frontend), vai pegar os endpoints dele, describendo os endpoints (pudesse haber usado swagger pra documentar os servicos
+ mas como sao poucos, achei que nao vale a pena):
 
-mysql> DROP TABLE test;
-Query OK, 0 rows affected (0.03 sec)
+http://localhost:8080/processFile  
 
-mysql> DESCRIBE cnab;
-+-----------+-------------+------+-----+---------+-------+
-| Field     | Type        | Null | Key | Default | Extra |
-+-----------+-------------+------+-----+---------+-------+
-| tipo      | varchar(1)  | YES  |     | NULL    |       |
-| data      | date        | YES  |     | NULL    |       |
-| valor     | double      | YES  |     | NULL    |       |
-| cpf       | int         | YES  |     | NULL    |       |
-| cartao    | int         | YES  |     | NULL    |       |
-| hora      | time        | YES  |     | NULL    |       |
-| dono_loja | varchar(14) | YES  |     | NULL    |       |
-| nome_loja | varchar(19) | YES  |     | NULL    |       |
-+-----------+-------------+------+-----+---------+-------+
-8 rows in set (0.00 sec)
+--> PARAMETROS: Um MultipartFile de nome 'file' 
+--> RETORNA: Um boolean sucess/error 
+--> FUNCAO: Adiciona as operaciones do archivos em a DB
 
-mysql> alter table cnab add column id INT unsigned NOT NULL AUTO_INCREMENT;
-ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
-mysql> alter table cnab add column id INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY;
-Query OK, 0 rows affected (0.09 sec)
-Records: 0  Duplicates: 0  Warnings: 0
+http://localhost:8080/listMovimentos 
 
-mysql> DESCRIBE cnab;
-+-----------+--------------+------+-----+---------+----------------+
-| Field     | Type         | Null | Key | Default | Extra          |
-+-----------+--------------+------+-----+---------+----------------+
-| tipo      | varchar(1)   | YES  |     | NULL    |                |
-| data      | date         | YES  |     | NULL    |                |
-| valor     | double       | YES  |     | NULL    |                |
-| cpf       | int          | YES  |     | NULL    |                |
-| cartao    | int          | YES  |     | NULL    |                |
-| hora      | time         | YES  |     | NULL    |                |
-| dono_loja | varchar(14)  | YES  |     | NULL    |                |
-| nome_loja | varchar(19)  | YES  |     | NULL    |                |
-| id        | int unsigned | NO   | PRI | NULL    | auto_increment |
-+-----------+--------------+------+-----+---------+----------------+
-9 rows in set (0.00 sec)
+--> PARAMETROS: --- 
+--> RETORNA: Uma lista de objectos
+--> FUNCAO: Lista as operaciones agrupadas por nome de lojas
 
-mysql> alter table cnab drop column id INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY' at line 1
-mysql> alter table cnab drop column id;
-Query OK, 0 rows affected (0.08 sec)
-Records: 0  Duplicates: 0  Warnings: 0
+http://localhost:8080/reset 
 
-mysql> DESCRIBE cnab;
-+-----------+-------------+------+-----+---------+-------+
-| Field     | Type        | Null | Key | Default | Extra |
-+-----------+-------------+------+-----+---------+-------+
-| tipo      | varchar(1)  | YES  |     | NULL    |       |
-| data      | date        | YES  |     | NULL    |       |
-| valor     | double      | YES  |     | NULL    |       |
-| cpf       | int         | YES  |     | NULL    |       |
-| cartao    | int         | YES  |     | NULL    |       |
-| hora      | time        | YES  |     | NULL    |       |
-| dono_loja | varchar(14) | YES  |     | NULL    |       |
-| nome_loja | varchar(19) | YES  |     | NULL    |       |
-+-----------+-------------+------+-----+---------+-------+
-8 rows in set (0.01 sec)
+--> PARAMETROS: --- 
+--> RETORNA: ---
+--> FUNCAO: Limpa a tabela de operacoes
 
-mysql> alter table cnab add column id LONG unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY' at line 1
-mysql> alter table cnab add column id INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY;
-Query OK, 0 rows affected (0.07 sec)
-Records: 0  Duplicates: 0  Warnings: 0
+Foi usado postman pra testar os endpoints, aqui vai um exemplo da devolucao do /listMovimentos: 
 
-mysql>
+{
+    "MERCEARIA 3 IRMÃOS": 28092.0,
+    "LOJA DO Ó - FILIAL": 609.28,
+    "MERCADO DA AVENIDA": 9340.8,
+    "BAR DO JOÃO       ": 1624.0,
+    "LOJA DO Ó - MATRIZ": 1736.0
+}
+
+
+Banco de Dados: Foi usado MySQL Server 8.0.27-1debian10 (imagem hosted em Hub Docker), pra persistencia dos registros, pra baixar a imagem deve ser feita do site de hub-docker (https://hub.docker.com/_/mysql). 
+
+* Adiciono para mais detalhe na criacao da DB em outro arquivo do projecto my-coders-backend, onde ai esta descrito tudo o trace da command-line-client da plataforma.
+
+
+
+
+
