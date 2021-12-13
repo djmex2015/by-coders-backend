@@ -11,8 +11,8 @@ $ mvn spring-boot:run spring-boot.run.jvmArguments=-noverify -XX:TieredStopAtLev
 
 I love you too:
 
-$ mvn clean package spring-boot:repackage
-$ java -jar target/basic-0.0.1-SNAPSHOT
+$  mvn clean package spring-boot:repackage
+$  java -jar target/basic-0.0.1-SNAPSHOT
 
 more arguments can be added (memory, cache, etc...) also to improve performance, depending on the infrastructural context where it is executed.
 
