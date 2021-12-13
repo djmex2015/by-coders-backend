@@ -7,9 +7,9 @@ For unit tests, JUnit 4.13.2 was used with spring-test and MockMvc to mock the d
 
 To run the backend it has to be run like this:
 
-$ mvn spring-boot:run spring-boot.run.jvmArguments=-noverify -XX:TieredStopAtLevel=1 spring-boot.run.mainClass=com.example.BasicApplication Env.SPRING_OUTPUT_ANSI_ENABLED=always
+$   mvn spring-boot:run spring-boot.run.jvmArguments=-noverify -XX:TieredStopAtLevel=1 spring-boot.run.mainClass=com.example.BasicApplication Env.SPRING_OUTPUT_ANSI_ENABLED=always
 
-I love you too:
+or also:
 
 $  mvn clean package spring-boot:repackage
 $  java -jar target/basic-0.0.1-SNAPSHOT
