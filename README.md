@@ -1,60 +1,55 @@
 # by-coders-backend
 
-**Back-End**: O BackEnd foi desenvolvido em Java 11 usando Spring Boot 2 (v2.5.6), desenvolvido no Spring 5 (muito bom soporte), aproveitando a otimização de recursos de automação de tasks.
-Aqui se uso outras tecnologias como spring-data, spring-web, lombok, spring-boot-maven-plugin, etc...nao tive a necessidade de outras que poderiam ser adicioandas tambem.
+**Back-End**: The BackEnd was developed in Java 11 using Spring Boot 2 (v2.5.6), developed in Spring 5 (very good support), taking advantage of the optimization of tasks automation resources.
+Here I use other technologies such as spring-data, spring-web, lombok, spring-boot-maven-plugin, etc... I didn't have the need for others that could be added too.
 
-Para testes unitarios foi usado JUnit 4.13.2 com spring-test e MockMvc pra mockar o dados.
+For unit tests, JUnit 4.13.2 was used with spring-test and MockMvc to mock the data.
 
-Pra rodar o backend tem que ser executado asim:
+To run the backend it has to be run like this:
 
-	$	mvn spring-boot:run spring-boot.run.jvmArguments=-noverify -XX:TieredStopAtLevel=1 spring-boot.run.mainClass=com.example.BasicApplication Env.SPRING_OUTPUT_ANSI_ENABLED=always
-	
-uo tambem:
+$ mvn spring-boot:run spring-boot.run.jvmArguments=-noverify -XX:TieredStopAtLevel=1 spring-boot.run.mainClass=com.example.BasicApplication Env.SPRING_OUTPUT_ANSI_ENABLED=always
 
-	$	mvn clean package spring-boot:repackage
-	$	java -jar target/basic-0.0.1-SNAPSHOT
+I love you too:
 
-pode ser adicionado mais argumentos (memoria,cache,etc...) tambem para melhorar a performance, dependendo do contexto infra-estrutural onde se este executamdo.
+$ mvn clean package spring-boot:repackage
+$ java -jar target/basic-0.0.1-SNAPSHOT
+
+more arguments can be added (memory, cache, etc...) also to improve performance, depending on the infrastructural context where it is executed.
 
 **ENDPOINTS**
 
-Ao executar essas linhas vai ficar escutando no porto 8080, o qual o client (frontend), vai pegar os endpoints dele, describendo os endpoints (pudesse haber usado swagger pra documentar os servicos mas como sao poucos, achei que nao vale a pena):
+When executing these lines, it will listen on port 8080, which the client (frontend) will get its endpoints, describing the endpoints (I could have used swagger to document the services but as there are few, I thought it was not worth it):
 
-http://localhost:8080/processFile  
+http://localhost:8080/processFile
 
-* --> PARAMETROS: Um MultipartFile de nome 'file' 
-* --> RETORNA: Um boolean sucess/error 
-* --> FUNCAO: Adiciona as operaciones do archivos em a DB
+* --> PARAMETERS: A MultipartFile named 'file'
+* --> RETURN: A boolean success/error
+* --> FUNCTION: Adds the operations of the files in the DB
 
-http://localhost:8080/listMovimentos 
+http://localhost:8080/listMovimentos
 
-* --> PARAMETROS: --- 
-* --> RETORNA: Uma lista de objectos
-* --> FUNCAO: Lista as operaciones agrupadas por nome de lojas
+* --> PARAMETERS: ---
+* --> RETURN: A list of objects
+* --> FUNCTION: Lists operations grouped by store name
 
-http://localhost:8080/reset 
+http://localhost:8080/reset
 
-* --> PARAMETROS: --- 
-* --> RETORNA: ---
-* --> FUNCAO: Limpa a tabela de operacoes
+* --> PARAMETERS: ---
+* --> RETURNS: ---
+* --> FUNCTION: Clear operation table
 
-Foi usado postman pra testar os endpoints, aqui vai um exemplo da devolucao do /listMovimentos: 
+Postman was used to test the endpoints, here is an example of the /listMovimentos return:
 ```
 {
-    "MERCEARIA 3 IRMÃOS": 28092.0,
-    "LOJA DO Ó - FILIAL": 609.28,
-    "MERCADO DA AVENIDA": 9340.8,
-    "BAR DO JOÃO       ": 1624.0,
+    "3 BROTHERS GROCERY": 28092.0,
+    "LOJA DO Ó - BRANCH": 609.28,
+    "AVENUE MARKET": 9340.8,
+    "BAR DO JOÃO": 1624.0,
     "LOJA DO Ó - MATRIZ": 1736.0
 }
 ```
 
-**Banco de Dados**: Foi usado MySQL Server 8.0.27-1debian10 (imagem hosted em Hub Docker), pra persistencia dos registros, pra baixar a imagem deve ser feita do site de hub-docker (https://hub.docker.com/_/mysql). 
+**Database**: MySQL Server 8.0.27-1debian10 was used (image hosted in Hub Docker), for record persistence, to download the image from hub-docker site (https://hub. docker.com/_/mysql).
 
-* As configuracoes estao descritas no application.properties (src/main/resources/application.properties).
-* Adiciono para mais detalhe na criacao da DB em outro arquivo do projecto my-coders-backend, onde ai esta descrito tudo o trace da command-line-client da plataforma.
-
-
-
-
-
+* Settings are described in application.properties (src/main/resources/application.properties).
+* I add for more details on the creation of the DB in another file of the project my-coders-backend, where all the trace of the command-line-client of the platform is described.
